@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Extraction de texte à partir d'une photo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="file-upload">
+        <h2>Extraction de texte</h2>
+        <div class="input-group">
+            <input type="file" id="fileInput" oninput="fileUpload();">
+            <div class="file-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#d4d8e1" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.5 14.5V11h1v3.5a.5.5 0 0 1-1 0z" />
+                </svg>
+            </div>
+            <label for="fileInput" class="browse-btn">Choisissez une Image</label>
+        </div>
+
+
+        <div class="preview-image" id="previewImage">
+            <span class="img"><img id="imageFile" /></span>
+            <div class="img-details">
+                <h6 id="fileName">Non du fichier</h6>
+                <div class="file-progress-bar"></div>
+                <button class="btn-delete" id="deleteImage">X</button>
+            </div>
+        </div>
+        <div class="text-container" id="textContainer"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.0/tesseract.min.js"></script>
+    <script>
+        var fileInput = document.getElementById('fileInput')
+        var deleteImage = document.getElementById('deleteImage')
+        var previewImage = document.getelementbyid('previewImage')
+        var fileName = document.getelementbyid('fileName')
+        var textContainer = document.getelementbyid('textcontainer')
+
+        function fileUpload(){
+            let text = fileInput.value ;
+            fileName.innerhtml = text ;
+            previewImage.style.diplay = 'flex';
+            imagefile.src = window.url.createObjectUrl(fileInput.files[0]);
+            Tesseract.recognize(fileInput.files[0])
+            .then(function(result){
+                textContainer.innertext = result.data.text ;
+            })
+            .catch(function(error){
+                console.error('error de l /extraction de texte' , error);
+            })
+        }
+deleteImage.addEventListener('click' , function(){
+    fileInput.value = null ;
+    previewImage.style.display = 'none'
+    textContainer.innerText='';
+})
+    </script>
+</body>
+</html>
+
+
+
+
